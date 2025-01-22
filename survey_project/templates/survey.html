@@ -3,31 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey</title>
+    <title>Survey on AB 1736 and Student Trustees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Light grey background */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px; /* Increased max-width for wider container */
+            margin: 0 auto;
+            background-color: #fff; /* White background for the container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for pop-out effect */
+            border: 1px solid #ccc; /* Light grey border */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            color: #666;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="radio"] {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .radio-group label {
+            margin-bottom: 10px;
+        }
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 10px; /* Smaller font size for the footer */
+        }
+    </style>
 </head>
 <body>
-    <h1>Survey on AB 1763 and Student Trustees</h1>
-    <p>Welcome to the survey! This survey is for a SSCCC resolution. Please fill out the form below to share your information.</p>  <!-- This is where your description will go -->
+    <div class="container">
+        <h1>Survey on AB 1763 and Student Trustees</h1>
+        <p>Welcome to the survey! This survey is for an SSCCC resolution. Everyone is welcomed to fill out the form below to share your information.</p>
 
-    <form action="/submit" method="POST">
-        <label for="college_name">College Name:</label>
-        <input type="text" id="college_name" name="college_name" required><br><br>
+        <form action="/submit" method="POST">
+            <label for="college_name">College Name:</label>
+            <input type="text" id="college_name" name="college_name" aria-label="College Name" required>
 
-        <label for="district_type">Is your college part of:</label><br>
-        <input type="radio" id="multi" name="district_type" value="Multi-College District" required>
-        <label for="multi">Multi-College District</label><br>
-        <input type="radio" id="single" name="district_type" value="Single-College District">
-        <label for="single">Single-College District</label><br><br>
+            <label for="Position">Position:</label>
+            <input type="text" id="Position" name="Position" aria-label="Position" required>
 
-        <label for="ab1763_eligible">Does your district allow student trustees to be eligible under AB 1763?</label><br>
-        <input type="radio" id="yes" name="ab1763_eligible" value="Yes" required>
-        <label for="yes">Yes</label><br>
-        <input type="radio" id="no" name="ab1763_eligible" value="No">
-        <label for="no">No</label><br>
-        <input type="radio" id="unsure" name="ab1763_eligible" value="Unsure">
-        <label for="unsure">Unsure</label><br><br>
 
-        <button type="submit">Submit</button>
-    </form>
+            <label>Is your college part of:</label>
+            <div class="radio-group">
+                <label for="multi">
+                    <input type="radio" id="multi" name="district_type" value="Multi-College District" aria-label="Multi-College District" required>
+                    Multi-College District
+                </label>
+                <label for="single">
+                    <input type="radio" id="single" name="district_type" value="Single-College District" aria-label="Single-College District">
+                    Single-College District
+                </label>
+            </div>
+
+            <label>Does your district allow student trustees to be eligible under AB 1763?</label>
+            <div class="radio-group">
+                <label for="yes">
+                    <input type="radio" id="yes" name="ab1763_eligible" value="Yes" aria-label="Yes" required>
+                    Yes
+                </label>
+                <label for="no">
+                    <input type="radio" id="no" name="ab1763_eligible" value="No" aria-label="No">
+                    No
+                </label>
+                <label for="unsure">
+                    <input type="radio" id="unsure" name="ab1763_eligible" value="Unsure" aria-label="Unsure">
+                    Unsure
+                </label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="footer">
+        Made by Olivia Garcia-Godos Martinez
+    </div>
 </body>
 </html>
