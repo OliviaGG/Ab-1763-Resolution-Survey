@@ -1,7 +1,29 @@
 from flask import Flask, request, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 import csv
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///responses.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Define a model for survey responses
+class Response(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    college_name = db.Column(db.String(80))
+    position = db.Column(db.String(80))
+    district_type = db.Column(db.String(80))
+    ab1736_eligible = db.Column(db.String(80))
+
+# Create the database tables
+db.create_all()
+
+# Set up Flask-Admin
+admin = Admin(app, name='Survey Admin', template_mode='bootstrap3')
+admin.add_view(ModelView(Response, db.session))
 
 # Route for the survey form
 @app.route('/')
@@ -17,10 +39,15 @@ def submit():
     district_type = request.form.get('district_type')
     ab1736_eligible = request.form.get('ab1736_eligible')
 
-    # Save the response to a CSV file
-    with open('responses.csv', mode='a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([college_name, position, district_type, ab1736_eligible])
+    # Save the response to the database
+    new_response = Response(
+        college_name=college_name,
+        position=position,
+        district_type=district_type,
+        ab1736_eligible=ab1736_eligible
+    )
+    db.session.add(new_response)
+    db.session.commit()
 
     return redirect(url_for('thank_you'))
 
