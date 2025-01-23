@@ -13,13 +13,14 @@ def survey():
 def submit():
     # Get data from the form
     college_name = request.form.get('college_name')
+    position = request.form.get('position')
     district_type = request.form.get('district_type')
-    ab1763_eligible = request.form.get('ab1763_eligible')
+    ab1736_eligible = request.form.get('ab1736_eligible')
 
     # Save the response to a CSV file
     with open('responses.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([college_name, district_type, ab1763_eligible])
+        writer.writerow([college_name, position, district_type, ab1736_eligible])
 
     return redirect(url_for('thank_you'))
 
