@@ -18,9 +18,6 @@ class Response(db.Model):
     district_type = db.Column(db.String(80))
     ab1736_eligible = db.Column(db.String(80))
 
-# Create the database tables
-db.create_all()
-
 # Set up Flask-Admin
 admin = Admin(app, name='Survey Admin', template_mode='bootstrap3')
 admin.add_view(ModelView(Response, db.session))
@@ -57,4 +54,6 @@ def thank_you():
     return "<h1>Thank you for your response!</h1>"
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
